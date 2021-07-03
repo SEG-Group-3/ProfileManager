@@ -2,6 +2,7 @@ package com.segg3.profilemanager;
 
 import android.os.Bundle;
 
+import com.blongho.country_data.World;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        World.init(getApplicationContext()); // Initializes the libray and loads all data
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
