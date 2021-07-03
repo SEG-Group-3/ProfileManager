@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blongho.country_data.Country;
 import com.segg3.profilemanager.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -16,11 +17,11 @@ import java.util.List;
 
 public class FlagListAdapter extends RecyclerView.Adapter<FlagListAdapter.FlagViewHolder> {
 
-    private final List<String> flagsList;
+    private final List<Country> countries;
     private View.OnClickListener onClickListener;
 
-    public FlagListAdapter(List<String> flags, View.OnClickListener onClickListener) {
-        this.flagsList = flags;
+    public FlagListAdapter(List<Country> countries, View.OnClickListener onClickListener) {
+        this.countries = countries;
         this.onClickListener = onClickListener;
     }
 
@@ -35,13 +36,13 @@ public class FlagListAdapter extends RecyclerView.Adapter<FlagListAdapter.FlagVi
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull FlagViewHolder holder, int position) {
-        String flagName = flagsList.get(position);
-        //holder.flagImage.setImageResource();
+        Country country = countries.get(position);
+        holder.flagImage.setImageResource(country.getFlagResource());
     }
 
     @Override
     public int getItemCount() {
-        return flagsList.size();
+        return countries.size();
     }
 
     class FlagViewHolder extends RecyclerView.ViewHolder {

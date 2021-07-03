@@ -4,11 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.blongho.country_data.Country;
+import com.blongho.country_data.World;
+import com.google.android.flexbox.AlignContent;
+import com.google.android.flexbox.AlignItems;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayout;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
+import com.segg3.profilemanager.R;
 import com.segg3.profilemanager.adapters.FlagListAdapter;
 import com.segg3.profilemanager.databinding.FragmentFlagsListBinding;
 
@@ -27,18 +39,32 @@ public class FlagListFragment extends Fragment {
 
 
 
-        List<String> stuff = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            stuff.add("123");
+
+
+        final List<Country> countries = World.getAllCountries();
+
+
+        binding.recyclerView.setFlexDirection(FlexDirection.ROW);
+        binding.recyclerView.setFlexWrap(FlexWrap.WRAP);
+        binding.recyclerView.setJustifyContent(JustifyContent.FLEX_START);
+        binding.recyclerView.setAlignItems(AlignItems.CENTER);
+        binding.recyclerView.setAlignContent(AlignContent.CENTER);
+
+
+
+
+        for (Country c: countries) {
+            View itemView= View.inflate(getContext(), R.layout.flag_card_layout, null);
+            ImageView flagImage = itemView.findViewById(R.id.flag_view);
+            TextView countryName = itemView.findViewById(R.id.country_name);
+            flagImage.setImageResource(c.getFlagResource());
+            countryName.setText(c.getName());
+            binding.recyclerView.addView(itemView);
+//            itemView.setLayoutParams(binding.recyclerView.getLayoutParams());
         }
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-        binding.recyclerView.setLayoutManager(layoutManager);
-        binding.recyclerView.scrollToPosition(0);
+        binding.recyclerView.scrollTo(0, 0);
 
-
-        FlagListAdapter flagListAdapter = new FlagListAdapter(stuff, this::onFlagClicked);
-        binding.recyclerView.setAdapter(flagListAdapter);
 
         return root;
     }
