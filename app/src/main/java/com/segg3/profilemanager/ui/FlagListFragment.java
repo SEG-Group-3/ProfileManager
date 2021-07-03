@@ -46,7 +46,7 @@ public class FlagListFragment extends Fragment {
 
         binding.recyclerView.setFlexDirection(FlexDirection.ROW);
         binding.recyclerView.setFlexWrap(FlexWrap.WRAP);
-        binding.recyclerView.setJustifyContent(JustifyContent.FLEX_START);
+        binding.recyclerView.setJustifyContent(JustifyContent.SPACE_EVENLY);
         binding.recyclerView.setAlignItems(AlignItems.CENTER);
         binding.recyclerView.setAlignContent(AlignContent.CENTER);
 
@@ -60,7 +60,6 @@ public class FlagListFragment extends Fragment {
             flagImage.setImageResource(c.getFlagResource());
             countryName.setText(c.getName());
             binding.recyclerView.addView(itemView);
-//            itemView.setLayoutParams(binding.recyclerView.getLayoutParams());
         }
 
         binding.recyclerView.scrollTo(0, 0);
