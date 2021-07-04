@@ -53,7 +53,7 @@ public class FlagListFragment extends Fragment {
 
         binding.recyclerView.setLayoutManager(layoutManager);
 
-        FlagListAdapter adapter = new FlagListAdapter(countries, null);
+        FlagListAdapter adapter = new FlagListAdapter(countries, this::onFlagClicked);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.scrollToPosition(0);
 
@@ -61,6 +61,8 @@ public class FlagListFragment extends Fragment {
 
         return root;
     }
+
+
 
     public int calculateNoOfColumns(float columnWidthDp) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
@@ -70,6 +72,9 @@ public class FlagListFragment extends Fragment {
     }
 
     private void onFlagClicked(View view) {
+        int position = binding.recyclerView.getChildLayoutPosition(view);
+        MainActivity.getInstance().setCountry(countries.get(position));
+        MainActivity.getInstance().swapViews(getParentFragmentManager(), new ProfileEditFragment());
     }
 
     @Override

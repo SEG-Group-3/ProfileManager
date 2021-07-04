@@ -1,5 +1,7 @@
 package com.segg3.profilemanager.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -34,9 +36,14 @@ public class ProfileEditFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        binding.avatarImage.setImageResource(MainActivity.getInstance().getCountry().getFlagResource());
+
+
         binding.avatarImage.setOnClickListener((v)-> {
             MainActivity.swapViews(getParentFragmentManager(), new FlagListFragment());
         });
+
+        binding.googleMapsButton.setOnClickListener(this::onOpenInMaps);
         return root;
     }
 
@@ -44,5 +51,13 @@ public class ProfileEditFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+
+    public void onOpenInMaps(View v){
+        String address = binding.teamAddressInput.getText().toString();
+        Intent intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("geo:0,0?q=" + address));
+        startActivity(intent);
     }
 }

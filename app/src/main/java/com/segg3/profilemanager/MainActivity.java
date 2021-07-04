@@ -2,6 +2,7 @@ package com.segg3.profilemanager;
 
 import android.os.Bundle;
 
+import com.blongho.country_data.Country;
 import com.blongho.country_data.World;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private FragmentManager fragmentManager;
     private static MainActivity instance;
-    // Hello
+    private Country country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragment_container, next);
         transaction.commit();
+    }
+
+    public Country getCountry() {
+        if (country != null)
+            return country;
+        country = World.getCountryFrom("CA");
+        return  country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
 //    public static void swipeFragmentLeft(FragmentManager manager, Fragment next) {
