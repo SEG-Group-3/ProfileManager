@@ -16,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.segg3.profilemanager.databinding.ActivityMainBinding;
 import com.segg3.profilemanager.ui.FlagListFragment;
+import com.segg3.profilemanager.ui.ProfileEditFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         fragmentManager = this.getSupportFragmentManager();
-        swapViews(fragmentManager, new FlagListFragment());
+        swapViews(fragmentManager, new ProfileEditFragment());
     }
 
     public static MainActivity getInstance(){

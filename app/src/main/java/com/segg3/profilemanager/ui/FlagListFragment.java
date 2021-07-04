@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.blongho.country_data.Country;
 import com.blongho.country_data.World;
+import com.segg3.profilemanager.MainActivity;
 import com.segg3.profilemanager.adapters.FlagListAdapter;
 import com.segg3.profilemanager.databinding.FragmentFlagsListBinding;
 
@@ -37,6 +39,12 @@ public class FlagListFragment extends Fragment {
         binding = FragmentFlagsListBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                MainActivity.swapViews(getParentFragmentManager(), new ProfileEditFragment());
+            }
+        });
 
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(calculateNoOfColumns(200), StaggeredGridLayoutManager.VERTICAL);
@@ -69,4 +77,6 @@ public class FlagListFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
 }
