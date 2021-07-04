@@ -5,31 +5,17 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.blongho.country_data.Country;
 import com.blongho.country_data.World;
-import com.google.android.flexbox.AlignContent;
-import com.google.android.flexbox.AlignItems;
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayout;
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
-import com.segg3.profilemanager.R;
 import com.segg3.profilemanager.adapters.FlagListAdapter;
 import com.segg3.profilemanager.databinding.FragmentFlagsListBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FlagListFragment extends Fragment {
@@ -38,6 +24,8 @@ public class FlagListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // TODO Get a list of ONLY EUROPEAN countries
         countries = World.getAllCountries();
 
     }
