@@ -17,22 +17,30 @@
 
         <ImageView
             android:id="@+id/flag_view"
-            android:layout_width="100sp"
-            android:layout_height="65sp"
-            android:cropToPadding="false"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp"
+            android:maxWidth="100sp"
+
+            android:maxHeight="100sp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/eh" />
 
         <TextView
             android:id="@+id/country_name"
             style="@style/Widget.MaterialComponents.TextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
+            android:layout_margin="2sp"
+            android:autoSizeMaxTextSize="100sp"
+            android:autoSizeMinTextSize="8sp"
+            android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
-            android:text="Country Name"
-            android:textSize="16sp" />
+            android:gravity="center|center_horizontal"
+            android:lines="1"
+            android:singleLine="false"
+            android:text="Country Name" />
 
     </LinearLayout>
 

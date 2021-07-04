@@ -24,12 +24,14 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private FragmentManager fragmentManager;
+    private static MainActivity instance;
     // Hello
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        instance = this;
 
         World.init(getApplicationContext()); // Initializes the libray and loads all data
 
@@ -40,9 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = this.getSupportFragmentManager();
         swapViews(fragmentManager, new FlagListFragment());
+    }
 
-
-
+    public static MainActivity getInstance(){
+        return instance;
     }
 
 

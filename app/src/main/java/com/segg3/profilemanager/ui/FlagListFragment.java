@@ -1,6 +1,7 @@
 package com.segg3.profilemanager.ui;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.blongho.country_data.Country;
 import com.blongho.country_data.World;
@@ -29,6 +34,13 @@ import java.util.List;
 
 public class FlagListFragment extends Fragment {
     private FragmentFlagsListBinding binding;
+    List<Country> countries;
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        countries = World.getAllCountries();
+
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -39,33 +51,26 @@ public class FlagListFragment extends Fragment {
 
 
 
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(calculateNoOfColumns(200), StaggeredGridLayoutManager.VERTICAL);
+        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
 
 
-        final List<Country> countries = World.getAllCountries();
+        binding.recyclerView.setLayoutManager(layoutManager);
 
+        FlagListAdapter adapter = new FlagListAdapter(countries, null);
+        binding.recyclerView.setAdapter(adapter);
+        binding.recyclerView.scrollToPosition(0);
 
-        binding.recyclerView.setFlexDirection(FlexDirection.ROW);
-        binding.recyclerView.setFlexWrap(FlexWrap.WRAP);
-        binding.recyclerView.setJustifyContent(JustifyContent.SPACE_EVENLY);
-        binding.recyclerView.setAlignItems(AlignItems.CENTER);
-        binding.recyclerView.setAlignContent(AlignContent.CENTER);
-
-
-
-
-        for (Country c: countries) {
-            View itemView= View.inflate(getContext(), R.layout.flag_card_layout, null);
-            ImageView flagImage = itemView.findViewById(R.id.flag_view);
-            TextView countryName = itemView.findViewById(R.id.country_name);
-            flagImage.setImageResource(c.getFlagResource());
-            countryName.setText(c.getName());
-            binding.recyclerView.addView(itemView);
-        }
-
-        binding.recyclerView.scrollTo(0, 0);
 
 
         return root;
+    }
+
+    public int calculateNoOfColumns(float columnWidthDp) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        float screenWidthDp = displayMetrics.widthPixels / displayMetrics.density;
+        int noOfColumns = (int) (screenWidthDp / columnWidthDp + 0.5); // +0.5 for correct rounding to int.
+        return noOfColumns;
     }
 
     private void onFlagClicked(View view) {
