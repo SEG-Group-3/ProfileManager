@@ -26,10 +26,7 @@ public class FlagListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // TODO Get a list of ONLY EUROPEAN countries
         countries = World.getAllCountries();
-
     }
 
     @Override
@@ -67,14 +64,13 @@ public class FlagListFragment extends Fragment {
     public int calculateNoOfColumns(float columnWidthDp) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         float screenWidthDp = displayMetrics.widthPixels / displayMetrics.density;
-        int noOfColumns = (int) (screenWidthDp / columnWidthDp + 0.5); // +0.5 for correct rounding to int.
-        return noOfColumns;
+        return (int) (screenWidthDp / columnWidthDp + 0.5); // +0.5 for correct rounding to int.
     }
 
     private void onFlagClicked(View view) {
         int position = binding.recyclerView.getChildLayoutPosition(view);
         MainActivity.getInstance().setCountry(countries.get(position));
-        MainActivity.getInstance().swapViews(getParentFragmentManager(), new ProfileEditFragment());
+        MainActivity.swapViews(getParentFragmentManager(), new ProfileEditFragment());
     }
 
     @Override
